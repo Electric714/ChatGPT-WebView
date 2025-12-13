@@ -12,7 +12,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install icon generator dependencies
+        run: python3 -m pip install --upgrade pip pillow
+
+      - name: Generate placeholder app icons
+        run: scripts/generate_app_icons.py
+
       - name: Build (no signing)
+        working-directory: ChatGPTWebView
         run: |
           set -euo pipefail
 
@@ -60,3 +72,4 @@ jobs:
         with:
           name: unsigned-ipa
           path: ${{ runner.temp }}/out/ChatGPTWebView-unsigned.ipa
+          if-no-files-found: error
