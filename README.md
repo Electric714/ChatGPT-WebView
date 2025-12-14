@@ -28,14 +28,8 @@ An automated workflow builds an unsigned IPA on macOS runners:
 - Output: `ChatGPTWebView-unsigned.ipa` artifact attached to the run
 
 To keep the repository free of binary assets, app icons are generated during the workflow
-run via `scripts/generate_app_icons.py`. For local builds, run the script once using a
-virtual environment and a PEP 668-safe install:
-
-```bash
-python3 -m venv .venv
-PIP_BREAK_SYSTEM_PACKAGES=1 .venv/bin/python -m pip install pillow
-.venv/bin/python scripts/generate_app_icons.py
-```
+run via `scripts/generate_app_icons.py`. For local builds, run the script once (requires
+`python3 -m pip install pillow`) to populate the placeholder icons before building.
 
 The Xcode project uses **manual code signing with an empty Development Team** to avoid
 needing any certificates. The workflow also passes `CODE_SIGNING_ALLOWED=NO`, so the

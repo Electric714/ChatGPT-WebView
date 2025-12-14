@@ -12,26 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-
-      - name: Create Python virtual environment
-        run: |
-          python3 -m venv .venv
-          PIP_BREAK_SYSTEM_PACKAGES=1 .venv/bin/python -m pip install pillow
+      - name: Install icon generator dependencies
+        run: python3 -m pip install --upgrade pip pillow
 
       - name: Generate placeholder app icons
-        run: .venv/bin/python scripts/generate_app_icons.py
-
-      - name: Cache derived data
-        uses: actions/cache@v4
-        with:
-          path: ${{ runner.temp }}/DerivedData
-          key: derived-${{ runner.os }}-${{ hashFiles('ChatGPTWebView/ChatGPTWebView.xcodeproj/project.pbxproj') }}
-          restore-keys: |
-            derived-${{ runner.os }}-
+        run: scripts/generate_app_icons.py
 
       - name: Build (no signing)
         working-directory: ChatGPTWebView
