@@ -12,7 +12,31 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Create Python virtual environment
+        env:
+          PIP_BREAK_SYSTEM_PACKAGES: 1
+        run: |
+          python -m venv .venv --upgrade-deps
+          .venv/bin/python -m pip install pillow
+
+      - name: Generate placeholder app icons
+        run: .venv/bin/python scripts/generate_app_icons.py
+
+      - name: Cache derived data
+        uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}/DerivedData
+          key: derived-${{ runner.os }}-${{ hashFiles('ChatGPTWebView/ChatGPTWebView.xcodeproj/project.pbxproj') }}
+          restore-keys: |
+            derived-${{ runner.os }}-
+
       - name: Build (no signing)
+        working-directory: ChatGPTWebView
         run: |
           set -euo pipefail
 
@@ -60,3 +84,4 @@ jobs:
         with:
           name: unsigned-ipa
           path: ${{ runner.temp }}/out/ChatGPTWebView-unsigned.ipa
+          if-no-files-found: error

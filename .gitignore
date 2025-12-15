@@ -60,3 +60,9 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
+
+# Generated app icons (created in CI to avoid tracking binaries)
+ChatGPTWebView/ChatGPTWebView/Assets.xcassets/AppIcon.appiconset/*.png
+
+# macOS archive metadata
+__MACOSX/
