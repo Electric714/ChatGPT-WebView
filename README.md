@@ -37,6 +37,8 @@ PIP_BREAK_SYSTEM_PACKAGES=1 .venv/bin/python -m pip install --upgrade pip --brea
 PIP_BREAK_SYSTEM_PACKAGES=1 .venv/bin/python -m pip install pillow --break-system-packages
 .venv/bin/python scripts/generate_app_icons.py
 ```
+run via `scripts/generate_app_icons.py`. For local builds, run the script once (requires
+`python3 -m pip install pillow`) to populate the placeholder icons before building.
 
 The Xcode project uses **manual code signing with an empty Development Team** to avoid
 needing any certificates. The workflow also passes `CODE_SIGNING_ALLOWED=NO`, so the
