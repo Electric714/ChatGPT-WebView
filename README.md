@@ -37,15 +37,12 @@ PIP_BREAK_SYSTEM_PACKAGES=1 .venv/bin/python -m pip install --upgrade pip --brea
 PIP_BREAK_SYSTEM_PACKAGES=1 .venv/bin/python -m pip install pillow --break-system-packages
 .venv/bin/python scripts/generate_app_icons.py
 ```
+run via `scripts/generate_app_icons.py`. For local builds, run the script once (requires
+`python3 -m pip install pillow`) to populate the placeholder icons before building.
 
 The Xcode project uses **manual code signing with an empty Development Team** to avoid
 needing any certificates. The workflow also passes `CODE_SIGNING_ALLOWED=NO`, so the
 build succeeds on GitHub-hosted runners without provisioning profiles.
-
-## In-app console (optional)
-- A floating "CGPTWV Console" overlay can be toggled from the lower-left button.
-- JavaScript hooks run entirely in-page; fetch/XHR/WebSocket logging is JS-level only.
-- Hooks default **OFF**; enable them from the Network tab toggles when needed.
 
 ## License
 MIT

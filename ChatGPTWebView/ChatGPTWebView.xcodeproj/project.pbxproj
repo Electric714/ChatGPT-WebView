@@ -3,16 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-objectVersion = 55;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
-60A707F32DD5C8A200672D6A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A707F22DD5C8A200672D6A /* AppDelegate.swift */; };
-3B1167A6E7E7447AB55C895E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE4A64C2CD948FAB05B6B41 /* ViewController.swift */; };
-E32C5F8516C64BCBBE8FB241 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 521F71EEFD8144539FE13790 /* Assets.xcassets */; };
-B6AA11EAD1E34F8786F332DF /* ChatGPTWebViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51218AFAFC9E463DA4950D52 /* ChatGPTWebViewTests.swift */; };
-D4EDF1A0C4E84239A87245EE /* ChatGPTWebViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976728B1B31A4D778848FB1E /* ChatGPTWebViewUITests.swift */; };
-55AE84FDDD1D45F6B1F106F6 /* ChatGPTWebViewUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3148014C627248D09888AE57 /* ChatGPTWebViewUITestsLaunchTests.swift */; };
+		60A707F32DD5C8A200672D6A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A707F22DD5C8A200672D6A /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,18 +28,42 @@ D4EDF1A0C4E84239A87245EE /* ChatGPTWebViewUITests.swift in Sources */ = {isa = P
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-60A707C52DD5BE7300672D6A /* ChatGPTWebView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatGPTWebView.app; sourceTree = BUILT_PRODUCTS_DIR; };
-60A707D32DD5BE7800672D6A /* ChatGPTWebViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChatGPTWebViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-60A707DD2DD5BE7800672D6A /* ChatGPTWebViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChatGPTWebViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-60A707F22DD5C8A200672D6A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-8DE4A64C2CD948FAB05B6B41 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTWebView/ViewController.swift; sourceTree = "<group>"; };
-772DB0B3B8194357AC6901F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ChatGPTWebView/Info.plist; sourceTree = "<group>"; };
-521F71EEFD8144539FE13790 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ChatGPTWebView/Assets.xcassets; sourceTree = "<group>"; };
-8DAE456B8D184F2AB39AF847 /* ChatGPTWebView.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChatGPTWebView/ChatGPTWebView.entitlements; sourceTree = "<group>"; };
-51218AFAFC9E463DA4950D52 /* ChatGPTWebViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTWebViewTests/ChatGPTWebViewTests.swift; sourceTree = "<group>"; };
-976728B1B31A4D778848FB1E /* ChatGPTWebViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTWebViewUITests/ChatGPTWebViewUITests.swift; sourceTree = "<group>"; };
-3148014C627248D09888AE57 /* ChatGPTWebViewUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTWebViewUITests/ChatGPTWebViewUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		60A707C52DD5BE7300672D6A /* ChatGPTWebView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatGPTWebView.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		60A707D32DD5BE7800672D6A /* ChatGPTWebViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChatGPTWebViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		60A707DD2DD5BE7800672D6A /* ChatGPTWebViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChatGPTWebViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		60A707F22DD5C8A200672D6A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		60A1659F2DD670BA00EDA48F /* Exceptions for "ChatGPTWebView" folder in "ChatGPTWebView" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 60A707C42DD5BE7300672D6A /* ChatGPTWebView */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		60A707C72DD5BE7300672D6A /* ChatGPTWebView */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				60A1659F2DD670BA00EDA48F /* Exceptions for "ChatGPTWebView" folder in "ChatGPTWebView" target */,
+			);
+			path = ChatGPTWebView;
+			sourceTree = "<group>";
+		};
+		60A707D62DD5BE7800672D6A /* ChatGPTWebViewTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ChatGPTWebViewTests;
+			sourceTree = "<group>";
+		};
+		60A707E02DD5BE7800672D6A /* ChatGPTWebViewUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ChatGPTWebViewUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		60A707C22DD5BE7300672D6A /* Frameworks */ = {
@@ -82,44 +101,16 @@ D4EDF1A0C4E84239A87245EE /* ChatGPTWebViewUITests.swift in Sources */ = {isa = P
 			);
 			sourceTree = "<group>";
 		};
-60A707C62DD5BE7300672D6A /* Products */ = {
-isa = PBXGroup;
-children = (
-60A707C52DD5BE7300672D6A /* ChatGPTWebView.app */,
-60A707D32DD5BE7800672D6A /* ChatGPTWebViewTests.xctest */,
-60A707DD2DD5BE7800672D6A /* ChatGPTWebViewUITests.xctest */,
-);
-name = Products;
-sourceTree = "<group>";
-};
-60A707C72DD5BE7300672D6A /* ChatGPTWebView */ = {
-isa = PBXGroup;
-children = (
-8DAE456B8D184F2AB39AF847 /* ChatGPTWebView.entitlements */,
-521F71EEFD8144539FE13790 /* Assets.xcassets */,
-772DB0B3B8194357AC6901F0 /* Info.plist */,
-8DE4A64C2CD948FAB05B6B41 /* ViewController.swift */,
-);
-path = ChatGPTWebView;
-sourceTree = "<group>";
-};
-60A707D62DD5BE7800672D6A /* ChatGPTWebViewTests */ = {
-isa = PBXGroup;
-children = (
-51218AFAFC9E463DA4950D52 /* ChatGPTWebViewTests.swift */,
-);
-path = ChatGPTWebViewTests;
-sourceTree = "<group>";
-};
-60A707E02DD5BE7800672D6A /* ChatGPTWebViewUITests */ = {
-isa = PBXGroup;
-children = (
-976728B1B31A4D778848FB1E /* ChatGPTWebViewUITests.swift */,
-3148014C627248D09888AE57 /* ChatGPTWebViewUITestsLaunchTests.swift */,
-);
-path = ChatGPTWebViewUITests;
-sourceTree = "<group>";
-};
+		60A707C62DD5BE7300672D6A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				60A707C52DD5BE7300672D6A /* ChatGPTWebView.app */,
+				60A707D32DD5BE7800672D6A /* ChatGPTWebViewTests.xctest */,
+				60A707DD2DD5BE7800672D6A /* ChatGPTWebViewUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -134,6 +125,9 @@ sourceTree = "<group>";
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				60A707C72DD5BE7300672D6A /* ChatGPTWebView */,
 			);
 			name = ChatGPTWebView;
 			packageProductDependencies = (
@@ -155,6 +149,9 @@ sourceTree = "<group>";
 			dependencies = (
 				60A707D52DD5BE7800672D6A /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				60A707D62DD5BE7800672D6A /* ChatGPTWebViewTests */,
+			);
 			name = ChatGPTWebViewTests;
 			packageProductDependencies = (
 			);
@@ -175,6 +172,9 @@ sourceTree = "<group>";
 			dependencies = (
 				60A707DF2DD5BE7800672D6A /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				60A707E02DD5BE7800672D6A /* ChatGPTWebViewUITests */,
+			);
 			name = ChatGPTWebViewUITests;
 			packageProductDependencies = (
 			);
@@ -189,8 +189,8 @@ sourceTree = "<group>";
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-LastSwiftUpdateCheck = 1540;
-               LastUpgradeCheck = 1430;
+				LastSwiftUpdateCheck = 1630;
+				LastUpgradeCheck = 1630;
 				TargetAttributes = {
 					60A707C42DD5BE7300672D6A = {
 						CreatedOnToolsVersion = 16.3;
@@ -206,37 +206,35 @@ LastSwiftUpdateCheck = 1540;
 					};
 				};
 			};
-buildConfigurationList = 60A707C02DD5BE7300672D6A /* Build configuration list for PBXProject "ChatGPTWebView" */;
-developmentRegion = en;
-               compatibilityVersion = "Xcode 13.0";
-hasScannedForEncodings = 0;
+			buildConfigurationList = 60A707C02DD5BE7300672D6A /* Build configuration list for PBXProject "ChatGPTWebView" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-                       Base,
-               );
-               mainGroup = 60A707BC2DD5BE7300672D6A;
-               minimizedProjectReferenceProxies = 1;
-               preferredProjectObjectVersion = 55;
-               productRefGroup = 60A707C62DD5BE7300672D6A /* Products */;
-               projectDirPath = "";
-               projectRoot = "";
-               targets = (
-                       60A707C42DD5BE7300672D6A /* ChatGPTWebView */,
-                       60A707D22DD5BE7800672D6A /* ChatGPTWebViewTests */,
-                       60A707DC2DD5BE7800672D6A /* ChatGPTWebViewUITests */,
-               );
+				Base,
+			);
+			mainGroup = 60A707BC2DD5BE7300672D6A;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 60A707C62DD5BE7300672D6A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				60A707C42DD5BE7300672D6A /* ChatGPTWebView */,
+				60A707D22DD5BE7800672D6A /* ChatGPTWebViewTests */,
+				60A707DC2DD5BE7800672D6A /* ChatGPTWebViewUITests */,
+			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-60A1659E2DD670BA00EDA48F /* Resources */ = {
-isa = PBXResourcesBuildPhase;
-buildActionMask = 2147483647;
-files = (
-E32C5F8516C64BCBBE8FB241 /* Assets.xcassets in Resources */,
-);
-runOnlyForDeploymentPostprocessing = 0;
-};
+		60A1659E2DD670BA00EDA48F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		60A707D12DD5BE7800672D6A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -254,32 +252,28 @@ runOnlyForDeploymentPostprocessing = 0;
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-60A707C12DD5BE7300672D6A /* Sources */ = {
-isa = PBXSourcesBuildPhase;
-buildActionMask = 2147483647;
-files = (
-60A707F32DD5C8A200672D6A /* AppDelegate.swift in Sources */,
-3B1167A6E7E7447AB55C895E /* ViewController.swift in Sources */,
-);
-runOnlyForDeploymentPostprocessing = 0;
-};
-60A707CF2DD5BE7800672D6A /* Sources */ = {
-isa = PBXSourcesBuildPhase;
-buildActionMask = 2147483647;
-files = (
-B6AA11EAD1E34F8786F332DF /* ChatGPTWebViewTests.swift in Sources */,
-);
-runOnlyForDeploymentPostprocessing = 0;
-};
-60A707D92DD5BE7800672D6A /* Sources */ = {
-isa = PBXSourcesBuildPhase;
-buildActionMask = 2147483647;
-files = (
-D4EDF1A0C4E84239A87245EE /* ChatGPTWebViewUITests.swift in Sources */,
-55AE84FDDD1D45F6B1F106F6 /* ChatGPTWebViewUITestsLaunchTests.swift in Sources */,
-);
-runOnlyForDeploymentPostprocessing = 0;
-};
+		60A707C12DD5BE7300672D6A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				60A707F32DD5C8A200672D6A /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		60A707CF2DD5BE7800672D6A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		60A707D92DD5BE7800672D6A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -412,118 +406,105 @@ runOnlyForDeploymentPostprocessing = 0;
 			};
 			name = Release;
 		};
-                60A707E82DD5BE7800672D6A /* Debug */ = {
-                        isa = XCBuildConfiguration;
-                        buildSettings = {
-                                ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-                                ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-                                ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-                                CLANG_ENABLE_MODULES = YES;
-                                CODE_SIGN_ENTITLEMENTS = "";
+		60A707E82DD5BE7800672D6A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CLANG_ENABLE_MODULES = YES;
+                                CODE_SIGN_ENTITLEMENTS = ChatGPTWebView/ChatGPTWebView.entitlements;
                                 CODE_SIGN_IDENTITY = "";
                                 CODE_SIGN_STYLE = Manual;
-                                CODE_SIGNING_ALLOWED = NO;
-                                CODE_SIGNING_REQUIRED = NO;
-                                CURRENT_PROJECT_VERSION = 1;
-                                DEVELOPMENT_TEAM = "";
-                                ENABLE_HARDENED_RUNTIME = YES;
-                                ENABLE_PREVIEWS = YES;
-                                GENERATE_INFOPLIST_FILE = NO;
-                                INFOPLIST_FILE = "$(SRCROOT)/ChatGPTWebView/Info.plist";
-                                INFOPLIST_KEY_CFBundleDisplayName = ChatGPTWebView;
-                                "INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
-                                "INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
-                                "INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
-                                "INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
-                                "INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
-                                "INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
-                                "INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
-                                "INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-                                INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-                                INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-                                IPHONEOS_DEPLOYMENT_TARGET = 15.1;
-                                LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
-                                "LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-                                MACOSX_DEPLOYMENT_TARGET = 15.3;
-                                PROVISIONING_PROFILE = "";
-                                PROVISIONING_PROFILE_SPECIFIER = "";
-                                MARKETING_VERSION = 1.0;
-                                PRODUCT_BUNDLE_IDENTIFIER = com.safenet.chatgptwebview;
-                                PRODUCT_NAME = "$(TARGET_NAME)";
-                                REGISTER_APP_GROUPS = YES;
-                                SDKROOT = auto;
-                                SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
-                                SWIFT_EMIT_LOC_STRINGS = YES;
-                                SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-                                SWIFT_VERSION = 5.0;
-                                TARGETED_DEVICE_FAMILY = "1,2,7";
-                                XROS_DEPLOYMENT_TARGET = 2.4;
-                        };
-                        name = Debug;
-                };
-                60A707E92DD5BE7800672D6A /* Release */ = {
-                        isa = XCBuildConfiguration;
-                        buildSettings = {
-                                ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-                                ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-                                ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-                                CLANG_ENABLE_MODULES = YES;
-                                CODE_SIGN_ENTITLEMENTS = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "$(SRCROOT)/ChatGPTWebView/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = ChatGPTWebView;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 15.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.safenet.chatgptwebview;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 2.4;
+			};
+			name = Debug;
+		};
+		60A707E92DD5BE7800672D6A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CLANG_ENABLE_MODULES = YES;
+                                CODE_SIGN_ENTITLEMENTS = ChatGPTWebView/ChatGPTWebView.entitlements;
                                 CODE_SIGN_IDENTITY = "";
                                 CODE_SIGN_STYLE = Manual;
-                                CODE_SIGNING_ALLOWED = NO;
-                                CODE_SIGNING_REQUIRED = NO;
-                                CURRENT_PROJECT_VERSION = 1;
-                                DEVELOPMENT_TEAM = "";
-                                ENABLE_HARDENED_RUNTIME = YES;
-                                ENABLE_PREVIEWS = YES;
-                                GENERATE_INFOPLIST_FILE = NO;
-                                INFOPLIST_FILE = "$(SRCROOT)/ChatGPTWebView/Info.plist";
-                                INFOPLIST_KEY_CFBundleDisplayName = ChatGPTWebView;
-                                "INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
-                                "INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
-                                "INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
-                                "INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
-                                "INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
-                                "INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
-                                "INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
-                                "INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-                                INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-                                INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-                                IPHONEOS_DEPLOYMENT_TARGET = 15.1;
-                                LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
-                                "LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-                                MACOSX_DEPLOYMENT_TARGET = 15.3;
-                                PROVISIONING_PROFILE = "";
-                                PROVISIONING_PROFILE_SPECIFIER = "";
-                                MARKETING_VERSION = 1.0;
-                                PRODUCT_BUNDLE_IDENTIFIER = com.safenet.chatgptwebview;
-                                PRODUCT_NAME = "$(TARGET_NAME)";
-                                REGISTER_APP_GROUPS = YES;
-                                SDKROOT = auto;
-                                SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
-                                SWIFT_EMIT_LOC_STRINGS = YES;
-                                SWIFT_VERSION = 5.0;
-                                TARGETED_DEVICE_FAMILY = "1,2,7";
-                                XROS_DEPLOYMENT_TARGET = 2.4;
-                        };
-                        name = Release;
-                };
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "$(SRCROOT)/ChatGPTWebView/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = ChatGPTWebView;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 15.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.safenet.chatgptwebview;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 2.4;
+			};
+			name = Release;
+		};
 		60A707EB2DD5BE7800672D6A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-                                CODE_SIGN_IDENTITY = "";
-                                CODE_SIGN_STYLE = Manual;
-                                CODE_SIGNING_ALLOWED = NO;
-                                CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-                                DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
-                                MACOSX_DEPLOYMENT_TARGET = 15.3;
-                                PROVISIONING_PROFILE = "";
-                                PROVISIONING_PROFILE_SPECIFIER = "";
+				MACOSX_DEPLOYMENT_TARGET = 15.3;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.merph.ChatGPTWebViewTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -541,17 +522,12 @@ runOnlyForDeploymentPostprocessing = 0;
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-                                CODE_SIGN_IDENTITY = "";
-                                CODE_SIGN_STYLE = Manual;
-                                CODE_SIGNING_ALLOWED = NO;
-                                CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-                                DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
-                                MACOSX_DEPLOYMENT_TARGET = 15.3;
-                                PROVISIONING_PROFILE = "";
-                                PROVISIONING_PROFILE_SPECIFIER = "";
+				MACOSX_DEPLOYMENT_TARGET = 15.3;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.merph.ChatGPTWebViewTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -567,18 +543,13 @@ runOnlyForDeploymentPostprocessing = 0;
 		};
 		60A707EE2DD5BE7800672D6A /* Debug */ = {
 			isa = XCBuildConfiguration;
-                        buildSettings = {
-                                CODE_SIGN_IDENTITY = "";
-                                CODE_SIGN_STYLE = Manual;
-                                CODE_SIGNING_ALLOWED = NO;
-                                CODE_SIGNING_REQUIRED = NO;
+			buildSettings = {
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
-                                MACOSX_DEPLOYMENT_TARGET = 15.3;
-                                PROVISIONING_PROFILE = "";
-                                PROVISIONING_PROFILE_SPECIFIER = "";
+				MACOSX_DEPLOYMENT_TARGET = 15.3;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.merph.ChatGPTWebViewUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -594,18 +565,13 @@ runOnlyForDeploymentPostprocessing = 0;
 		};
 		60A707EF2DD5BE7800672D6A /* Release */ = {
 			isa = XCBuildConfiguration;
-                        buildSettings = {
-                                CODE_SIGN_IDENTITY = "";
-                                CODE_SIGN_STYLE = Manual;
-                                CODE_SIGNING_ALLOWED = NO;
-                                CODE_SIGNING_REQUIRED = NO;
+			buildSettings = {
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
-                                MACOSX_DEPLOYMENT_TARGET = 15.3;
-                                PROVISIONING_PROFILE = "";
-                                PROVISIONING_PROFILE_SPECIFIER = "";
+				MACOSX_DEPLOYMENT_TARGET = 15.3;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.merph.ChatGPTWebViewUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
