@@ -35,37 +35,11 @@ jobs:
           key: derived-${{ runner.os }}-${{ hashFiles('ChatGPTWebView/ChatGPTWebView.xcodeproj/project.pbxproj') }}
           restore-keys: |
             derived-${{ runner.os }}-
+      - name: Install icon generator dependencies
+        run: python3 -m pip install --upgrade pip pillow
 
-      - name: Select Xcode 16
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: '16.2'
-
-      - name: Force Xcode 16 and verify
-        shell: bash
-        run: |
-          set -euo pipefail
-          echo "Xcode apps installed:"
-          ls -1 /Applications | grep '^Xcode' || true
-          # Pick an installed Xcode 16 app bundle. Prefer 16.4, else 16.3, else 16.2.
-          if [ -d "/Applications/Xcode_16.4.app" ]; then
-            export DEVELOPER_DIR="/Applications/Xcode_16.4.app/Contents/Developer"
-          elif [ -d "/Applications/Xcode_16.3.app" ]; then
-            export DEVELOPER_DIR="/Applications/Xcode_16.3.app/Contents/Developer"
-          elif [ -d "/Applications/Xcode_16.2.app" ]; then
-            export DEVELOPER_DIR="/Applications/Xcode_16.2.app/Contents/Developer"
-          elif [ -d "/Applications/Xcode.app" ]; then
-            # Fallback: assume Xcode.app is 16+ on this runner
-            export DEVELOPER_DIR="/Applications/Xcode.app/Contents/Developer"
-          else
-            echo "ERROR: No Xcode 16 found in /Applications" >&2
-            exit 1
-          fi
-          echo "DEVELOPER_DIR=$DEVELOPER_DIR" >> "$GITHUB_ENV"
-          echo "Using DEVELOPER_DIR=$DEVELOPER_DIR"
-          xcodebuild -version
-          xcode-select -p || true
-          which xcodebuild
+      - name: Generate placeholder app icons
+        run: scripts/generate_app_icons.py
 
       - name: Build (no signing)
         working-directory: ChatGPTWebView
