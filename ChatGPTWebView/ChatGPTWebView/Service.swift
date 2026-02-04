@@ -90,4 +90,15 @@ enum Service: CaseIterable {
             return nil
         }
     }
+
+    var zoomDefaultsKey: String {
+        switch self {
+        case .chatgpt:
+            return "zoomScale.chatgpt"
+        case .gemini:
+            return "zoomScale.gemini"
+        case .grok:
+            return "zoomScale.grok"
+        }
+    }
 }

@@ -7,6 +7,7 @@ A lightweight iOS WebView wrapper for ChatGPT’s web app. Built with Swift and 
 - Safari 16+ User-Agent spoofing
 - Mic input (speech-to-text)
 - Dark mode support
+- Per-tab zoom controls with saved per-service zoom
 - TrollStore compatibility
 - Manual or Xcode install
 

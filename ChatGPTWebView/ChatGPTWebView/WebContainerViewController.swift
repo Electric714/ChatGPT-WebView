@@ -75,12 +75,14 @@ final class WebContainerViewController: UIViewController, WKNavigationDelegate, 
     }
 
     private func configureNavigationItems() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
+        let safariButton = UIBarButtonItem(
             image: UIImage(systemName: "safari"),
             style: .plain,
             target: self,
             action: #selector(openInSafari)
         )
+        navigationItem.rightBarButtonItems = [safariButton, zoomBarButtonItem]
+        updateZoomButtonTitle(scale: storedZoomScale)
     }
 
     private func recreateWebViewIfNeeded() {
@@ -149,12 +151,91 @@ final class WebContainerViewController: UIViewController, WKNavigationDelegate, 
         UIApplication.shared.open(destination, options: [:], completionHandler: nil)
     }
 
+    @objc private func showZoomOptions() {
+        let alert = UIAlertController(title: "Zoom", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Zoom Out (−5%)", style: .default) { [weak self] _ in
+            guard let self else { return }
+            self.adjustZoom(by: -self.zoomStep)
+        })
+        alert.addAction(UIAlertAction(title: "Zoom In (+5%)", style: .default) { [weak self] _ in
+            guard let self else { return }
+            self.adjustZoom(by: self.zoomStep)
+        })
+        alert.addAction(UIAlertAction(title: "Reset (100%)", style: .default) { [weak self] _ in
+            self?.setZoom(scale: 1.0)
+        })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+
+        if let popover = alert.popoverPresentationController {
+            popover.barButtonItem = zoomBarButtonItem
+        }
+
+        present(alert, animated: true, completion: nil)
+    }
+
+    private var storedZoomScale: Double {
+        get {
+            let defaults = UserDefaults.standard
+            let key = service.zoomDefaultsKey
+            if let value = defaults.object(forKey: key) as? Double {
+                return clampZoomScale(value)
+            }
+            return 1.0
+        }
+        set {
+            UserDefaults.standard.set(clampZoomScale(newValue), forKey: service.zoomDefaultsKey)
+        }
+    }
+
+    private func clampZoomScale(_ scale: Double) -> Double {
+        return min(max(scale, minZoomScale), maxZoomScale)
+    }
+
+    private func adjustZoom(by delta: Double) {
+        setZoom(scale: storedZoomScale + delta)
+    }
+
+    private func setZoom(scale: Double) {
+        let clamped = clampZoomScale(scale)
+        storedZoomScale = clamped
+        applyZoom(scale: clamped)
+        updateZoomButtonTitle(scale: clamped)
+    }
+
+    private func applyStoredZoomIfNeeded() {
+        applyZoom(scale: storedZoomScale)
+        updateZoomButtonTitle(scale: storedZoomScale)
+    }
+
+    private func updateZoomButtonTitle(scale: Double) {
+        let percent = Int(round(scale * 100))
+        zoomBarButtonItem.title = "Zoom \(percent)%"
+    }
+
+    private func applyZoom(scale: Double) {
+        guard let webView else { return }
+        let formattedScale = String(format: "%.2f", scale)
+        let script = """
+        (function() {
+          var scale = \(formattedScale);
+          if (document.body) {
+            document.body.style.zoom = scale;
+          }
+          if (document.documentElement) {
+            document.documentElement.style.zoom = scale;
+          }
+        })();
+        """
+        webView.evaluateJavaScript(script, completionHandler: nil)
+    }
+
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         activityIndicator.stopAnimating()
         lastKnownURL = webView.url ?? lastKnownURL
         if let didFinishScript = service.injectedJavaScript?.didFinish {
             webView.evaluateJavaScript(didFinishScript, completionHandler: nil)
         }
+        applyStoredZoomIfNeeded()
     }
 
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
