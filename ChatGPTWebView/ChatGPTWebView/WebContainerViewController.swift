@@ -9,6 +9,15 @@ final class WebContainerViewController: UIViewController, WKNavigationDelegate, 
     private let service: Service
     private var lastKnownURL: URL?
     private var memoryWarningObserver: NSObjectProtocol?
+    private lazy var zoomBarButtonItem = UIBarButtonItem(
+        title: "Zoom 100%",
+        style: .plain,
+        target: self,
+        action: #selector(showZoomOptions)
+    )
+    private let zoomStep: Double = 0.05
+    private let minZoomScale: Double = 0.5
+    private let maxZoomScale: Double = 2.0
 
     init(service: Service) {
         self.service = service

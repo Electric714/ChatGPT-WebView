@@ -35,12 +35,6 @@ jobs:
           key: derived-${{ runner.os }}-${{ hashFiles('ChatGPTWebView/ChatGPTWebView.xcodeproj/project.pbxproj') }}
           restore-keys: |
             derived-${{ runner.os }}-
-      - name: Install icon generator dependencies
-        run: python3 -m pip install --upgrade pip pillow
-
-      - name: Generate placeholder app icons
-        run: scripts/generate_app_icons.py
-
       - name: Build (no signing)
         working-directory: ChatGPTWebView
         run: |
