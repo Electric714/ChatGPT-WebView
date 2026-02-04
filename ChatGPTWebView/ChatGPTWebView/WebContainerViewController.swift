@@ -272,6 +272,7 @@ final class WebContainerViewController: UIViewController, WKNavigationDelegate, 
     }
 
     private func handleMemoryWarning() {
+        guard view.window != nil else { return }
         guard !isSelectedTab else { return }
         unloadIfNeeded()
     }
