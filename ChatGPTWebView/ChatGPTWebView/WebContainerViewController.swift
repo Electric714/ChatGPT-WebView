@@ -9,6 +9,12 @@ final class WebContainerViewController: UIViewController, WKNavigationDelegate, 
     private let service: Service
     private var lastKnownURL: URL?
     private var memoryWarningObserver: NSObjectProtocol?
+    private lazy var menuBarButtonItem = UIBarButtonItem(
+        title: "⋯",
+        style: .plain,
+        target: self,
+        action: #selector(showActionMenu)
+    )
     private lazy var zoomBarButtonItem = UIBarButtonItem(
         title: "Zoom 100%",
         style: .plain,
@@ -28,6 +34,10 @@ final class WebContainerViewController: UIViewController, WKNavigationDelegate, 
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    var serviceType: Service {
+        service
     }
 
     override func viewDidLoad() {
@@ -90,7 +100,7 @@ final class WebContainerViewController: UIViewController, WKNavigationDelegate, 
             target: self,
             action: #selector(openInSafari)
         )
-        navigationItem.rightBarButtonItems = [safariButton, zoomBarButtonItem]
+        navigationItem.rightBarButtonItems = [menuBarButtonItem, safariButton, zoomBarButtonItem]
         updateZoomButtonTitle(scale: storedZoomScale)
     }
 
@@ -158,6 +168,42 @@ final class WebContainerViewController: UIViewController, WKNavigationDelegate, 
     @objc private func openInSafari() {
         let destination = webView?.url ?? service.homeURL
         UIApplication.shared.open(destination, options: [:], completionHandler: nil)
+    }
+
+    @objc private func showActionMenu() {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+
+        let backAction = UIAlertAction(title: "Back", style: .default) { [weak self] _ in
+            self?.webView?.goBack()
+        }
+        backAction.isEnabled = webView?.canGoBack ?? false
+        alert.addAction(backAction)
+
+        let forwardAction = UIAlertAction(title: "Forward", style: .default) { [weak self] _ in
+            self?.webView?.goForward()
+        }
+        forwardAction.isEnabled = webView?.canGoForward ?? false
+        alert.addAction(forwardAction)
+
+        alert.addAction(UIAlertAction(title: "Reload", style: .default) { [weak self] _ in
+            self?.webView?.reload()
+        })
+
+        alert.addAction(UIAlertAction(title: "Open in Safari", style: .default) { [weak self] _ in
+            self?.openInSafari()
+        })
+
+        alert.addAction(UIAlertAction(title: "Clear Site Data", style: .destructive) { [weak self] _ in
+            self?.clearSiteData()
+        })
+
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+
+        if let popover = alert.popoverPresentationController {
+            popover.barButtonItem = menuBarButtonItem
+        }
+
+        present(alert, animated: true)
     }
 
     @objc private func showZoomOptions() {
@@ -236,6 +282,34 @@ final class WebContainerViewController: UIViewController, WKNavigationDelegate, 
         })();
         """
         webView.evaluateJavaScript(script, completionHandler: nil)
+    }
+
+    private func clearSiteData() {
+        let dataStore = WKWebsiteDataStore.default()
+        let dataTypes = WKWebsiteDataStore.allWebsiteDataTypes()
+        let targetDomain = service.websiteDataDomain.lowercased()
+        dataStore.fetchDataRecords(ofTypes: dataTypes) { [weak self] records in
+            let matchingRecords = records.filter { record in
+                record.displayName.lowercased().contains(targetDomain)
+            }
+            guard !matchingRecords.isEmpty else {
+                DispatchQueue.main.async {
+                    self?.loadServiceHomeURL()
+                }
+                return
+            }
+            dataStore.removeData(ofTypes: dataTypes, for: matchingRecords) {
+                DispatchQueue.main.async {
+                    self?.loadServiceHomeURL()
+                }
+            }
+        }
+    }
+
+    private func loadServiceHomeURL() {
+        guard let webView else { return }
+        let request = URLRequest(url: service.homeURL, cachePolicy: .reloadRevalidatingCacheData, timeoutInterval: 30)
+        webView.load(request)
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
