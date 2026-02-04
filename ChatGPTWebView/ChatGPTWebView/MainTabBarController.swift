@@ -5,10 +5,13 @@ final class MainTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewControllers = Service.allCases.map { service in
+        var controllers = Service.allCases.map { service in
             let webController = WebContainerViewController(service: service)
             return UINavigationController(rootViewController: webController)
         }
+        let notesController = NotesViewController()
+        controllers.append(UINavigationController(rootViewController: notesController))
+        viewControllers = controllers
         memoryWarningObserver = NotificationCenter.default.addObserver(
             forName: UIApplication.didReceiveMemoryWarningNotification,
             object: nil,
