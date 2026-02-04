@@ -7,12 +7,14 @@ A lightweight iOS WebView wrapper for ChatGPT’s web app. Built with Swift and 
 - Safari 16+ User-Agent spoofing
 - Mic input (speech-to-text)
 - Dark mode support
+- Per-tab zoom controls with saved per-service zoom
 - TrollStore compatibility
 - Manual or Xcode install
 
 ## Tabs & Service URLs
 The app ships with a three-tab UI for ChatGPT, Gemini, and Grok. To point a tab at a
 different site, update the corresponding `homeURL` in the `Service` enum.
+Each tab supports zoom controls; per-site zoom is saved.
 
 ## Build Requirements
 - Xcode 14+
