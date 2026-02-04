@@ -101,4 +101,15 @@ enum Service: CaseIterable {
             return "zoomScale.grok"
         }
     }
+
+    var websiteDataDomain: String {
+        switch self {
+        case .chatgpt:
+            return "chatgpt.com"
+        case .gemini:
+            return "gemini.google.com"
+        case .grok:
+            return "grok.com"
+        }
+    }
 }
