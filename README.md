@@ -11,8 +11,14 @@ A lightweight iOS WebView wrapper for ChatGPT’s web app. Built with Swift and 
 - Manual or Xcode install
 
 ## Tabs & Service URLs
-The app ships with a three-tab UI for ChatGPT, Gemini, and Grok. To point a tab at a
-different site, update the corresponding `homeURL` in the `Service` enum.
+The app ships with a three-tab UI for ChatGPT, Gemini, and Grok, plus a Notes tab backed
+by a native `UITextView` for quick text capture. To point a web tab at a different site,
+update the corresponding `homeURL` in the `Service` enum.
+
+## Memory Management
+On memory warnings, the app conservatively unloads background web tabs to free resources
+while preserving each tab’s last URL and session data so they can reload seamlessly when
+reselected.
 
 ## Build Requirements
 - Xcode 14+

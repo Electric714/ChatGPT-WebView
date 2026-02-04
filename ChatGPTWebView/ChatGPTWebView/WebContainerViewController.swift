@@ -7,6 +7,8 @@ final class WebContainerViewController: UIViewController, WKNavigationDelegate, 
     private(set) var webView: WKWebView?
     private let activityIndicator = UIActivityIndicatorView(style: .large)
     private let service: Service
+    private var lastKnownURL: URL?
+    private var memoryWarningObserver: NSObjectProtocol?
 
     init(service: Service) {
         self.service = service
@@ -24,19 +26,46 @@ final class WebContainerViewController: UIViewController, WKNavigationDelegate, 
         view.backgroundColor = .systemBackground
         configureActivityIndicator()
         configureNavigationItems()
-        createWebViewIfNeeded()
+        recreateWebViewIfNeeded()
+        memoryWarningObserver = NotificationCenter.default.addObserver(
+            forName: UIApplication.didReceiveMemoryWarningNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            self?.handleMemoryWarning()
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        createWebViewIfNeeded()
+        recreateWebViewIfNeeded()
     }
 
-    func releaseWebView() {
-        webView?.navigationDelegate = nil
-        webView?.uiDelegate = nil
-        webView?.removeFromSuperview()
-        webView = nil
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        handleSelection()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        handleDeselection()
+    }
+
+    deinit {
+        if let memoryWarningObserver {
+            NotificationCenter.default.removeObserver(memoryWarningObserver)
+        }
+    }
+
+    func unloadIfNeeded() {
+        guard let webView else { return }
+        lastKnownURL = webView.url ?? lastKnownURL
+        webView.stopLoading()
+        webView.navigationDelegate = nil
+        webView.uiDelegate = nil
+        webView.removeFromSuperview()
+        self.webView = nil
+        activityIndicator.stopAnimating()
     }
 
     private func configureActivityIndicator() {
@@ -54,8 +83,11 @@ final class WebContainerViewController: UIViewController, WKNavigationDelegate, 
         )
     }
 
-    private func createWebViewIfNeeded() {
-        guard webView == nil else { return }
+    private func recreateWebViewIfNeeded() {
+        guard webView == nil else {
+            webView?.isHidden = false
+            return
+        }
         let config = makeConfiguration()
         let newWebView = WKWebView(frame: view.bounds, configuration: config)
         if let userAgent = service.userAgentOverride {
@@ -69,7 +101,7 @@ final class WebContainerViewController: UIViewController, WKNavigationDelegate, 
         newWebView.isOpaque = false
         view.insertSubview(newWebView, belowSubview: activityIndicator)
         webView = newWebView
-        loadHomeIfNeeded()
+        loadLastURLIfNeeded()
     }
 
     private func makeConfiguration() -> WKWebViewConfiguration {
@@ -101,11 +133,12 @@ final class WebContainerViewController: UIViewController, WKNavigationDelegate, 
         return config
     }
 
-    private func loadHomeIfNeeded() {
+    private func loadLastURLIfNeeded() {
         guard let webView else { return }
         guard webView.url == nil else { return }
         activityIndicator.startAnimating()
-        let request = URLRequest(url: service.homeURL, cachePolicy: .reloadRevalidatingCacheData, timeoutInterval: 30)
+        let destination = lastKnownURL ?? service.homeURL
+        let request = URLRequest(url: destination, cachePolicy: .reloadRevalidatingCacheData, timeoutInterval: 30)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             webView.load(request)
         }
@@ -118,6 +151,7 @@ final class WebContainerViewController: UIViewController, WKNavigationDelegate, 
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         activityIndicator.stopAnimating()
+        lastKnownURL = webView.url ?? lastKnownURL
         if let didFinishScript = service.injectedJavaScript?.didFinish {
             webView.evaluateJavaScript(didFinishScript, completionHandler: nil)
         }
@@ -129,6 +163,7 @@ final class WebContainerViewController: UIViewController, WKNavigationDelegate, 
     }
 
     func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+        guard webView === self.webView else { return }
         webView.reload()
     }
 
@@ -141,5 +176,30 @@ final class WebContainerViewController: UIViewController, WKNavigationDelegate, 
         let alert = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in completionHandler() })
         present(alert, animated: true, completion: nil)
+    }
+
+    private func handleSelection() {
+        recreateWebViewIfNeeded()
+        webView?.isHidden = false
+        loadLastURLIfNeeded()
+    }
+
+    private func handleDeselection() {
+        webView?.stopLoading()
+        webView?.isHidden = true
+        activityIndicator.stopAnimating()
+    }
+
+    private func handleMemoryWarning() {
+        guard !isSelectedTab else { return }
+        unloadIfNeeded()
+    }
+
+    private var isSelectedTab: Bool {
+        guard let tabBarController else { return true }
+        if let navigationController {
+            return tabBarController.selectedViewController === navigationController
+        }
+        return tabBarController.selectedViewController === self
     }
 }
