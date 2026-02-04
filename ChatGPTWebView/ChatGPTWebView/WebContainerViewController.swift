@@ -1,56 +1,80 @@
 import UIKit
 import WebKit
 
-enum WebService {
-    case chatgpt
-    case gemini
-    case grok
-
-    var title: String {
-        switch self {
-        case .chatgpt:
-            return "ChatGPT"
-        case .gemini:
-            return "Gemini"
-        case .grok:
-            return "Grok"
-        }
-    }
-
-    var url: URL? {
-        switch self {
-        case .chatgpt:
-            return URL(string: "https://chat.openai.com")
-        case .gemini:
-            return URL(string: "https://gemini.google.com")
-        case .grok:
-            return URL(string: "https://grok.x.ai")
-        }
-    }
-}
-
 final class WebContainerViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
-    private let service: WebService
-    private var webView: WKWebView!
-    private let activityIndicator = UIActivityIndicatorView(style: .large)
+    static let sharedProcessPool = WKProcessPool()
 
-    init(service: WebService) {
+    private(set) var webView: WKWebView?
+    private let activityIndicator = UIActivityIndicatorView(style: .large)
+    private let service: Service
+
+    init(service: Service) {
         self.service = service
         super.init(nibName: nil, bundle: nil)
         title = service.title
+        tabBarItem = UITabBarItem(title: service.title, image: UIImage(systemName: service.tabIconSystemName), tag: 0)
     }
 
-    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("✅ WebContainerViewController loaded for \(service.title)")
+        view.backgroundColor = .systemBackground
+        configureActivityIndicator()
+        configureNavigationItems()
+        createWebViewIfNeeded()
+    }
 
-        // MARK: - WebView Configuration
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        createWebViewIfNeeded()
+    }
+
+    func releaseWebView() {
+        webView?.navigationDelegate = nil
+        webView?.uiDelegate = nil
+        webView?.removeFromSuperview()
+        webView = nil
+    }
+
+    private func configureActivityIndicator() {
+        activityIndicator.center = view.center
+        activityIndicator.hidesWhenStopped = true
+        view.addSubview(activityIndicator)
+    }
+
+    private func configureNavigationItems() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "safari"),
+            style: .plain,
+            target: self,
+            action: #selector(openInSafari)
+        )
+    }
+
+    private func createWebViewIfNeeded() {
+        guard webView == nil else { return }
+        let config = makeConfiguration()
+        let newWebView = WKWebView(frame: view.bounds, configuration: config)
+        if let userAgent = service.userAgentOverride {
+            newWebView.customUserAgent = userAgent
+        }
+        newWebView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        newWebView.navigationDelegate = self
+        newWebView.uiDelegate = self
+        newWebView.allowsBackForwardNavigationGestures = true
+        newWebView.backgroundColor = .systemBackground
+        newWebView.isOpaque = false
+        view.insertSubview(newWebView, belowSubview: activityIndicator)
+        webView = newWebView
+        loadHomeIfNeeded()
+    }
+
+    private func makeConfiguration() -> WKWebViewConfiguration {
         let config = WKWebViewConfiguration()
+        config.processPool = Self.sharedProcessPool
         config.websiteDataStore = .default()
         config.allowsInlineMediaPlayback = true
         config.mediaTypesRequiringUserActionForPlayback = []
@@ -62,81 +86,41 @@ final class WebContainerViewController: UIViewController, WKNavigationDelegate, 
         config.defaultWebpagePreferences = prefs
 
         let userContentController = WKUserContentController()
-
-        // Inject BEFORE React hydration: force sidebar closed
-        let preHydrationSidebarFix = WKUserScript(
-            source: """
-            try {
-              localStorage.setItem('sidebar-expanded-state', 'false');
-              console.log('💥 Injected: sidebar-expanded-state set to false BEFORE hydration');
-            } catch (e) {
-              console.log('⚠️ Failed to set sidebar state early:', e);
+        if let injectedJavaScript = service.injectedJavaScript {
+            if let documentStart = injectedJavaScript.documentStart {
+                let script = WKUserScript(source: documentStart, injectionTime: .atDocumentStart, forMainFrameOnly: true)
+                userContentController.addUserScript(script)
             }
-            """,
-            injectionTime: .atDocumentStart,
-            forMainFrameOnly: true
-        )
-        userContentController.addUserScript(preHydrationSidebarFix)
-
-        // Inject viewport tag AFTER DOM builds
-        let viewportScript = WKUserScript(source: """
-            var meta = document.createElement('meta');
-            meta.name = 'viewport';
-            meta.content = 'width=device-width, initial-scale=1.0';
-            document.head.appendChild(meta);
-        """, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
-        userContentController.addUserScript(viewportScript)
-
+            if let documentEnd = injectedJavaScript.documentEnd {
+                let script = WKUserScript(source: documentEnd, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+                userContentController.addUserScript(script)
+            }
+        }
         config.userContentController = userContentController
 
-        // MARK: - Initialize WebView
-        webView = WKWebView(frame: view.bounds, configuration: config)
-        webView.customUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 13_6_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15"
-        webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        webView.navigationDelegate = self
-        webView.uiDelegate = self
-        webView.allowsBackForwardNavigationGestures = true
-        webView.backgroundColor = .systemBackground
-        webView.isOpaque = false
-        view.addSubview(webView)
+        return config
+    }
 
-        // MARK: - Spinner Setup
-        activityIndicator.center = view.center
-        activityIndicator.hidesWhenStopped = true
-        view.addSubview(activityIndicator)
+    private func loadHomeIfNeeded() {
+        guard let webView else { return }
+        guard webView.url == nil else { return }
         activityIndicator.startAnimating()
-
-        // MARK: - Load Service Landing Page
-        if let url = service.url {
-            let request = URLRequest(url: url, cachePolicy: .reloadRevalidatingCacheData, timeoutInterval: 30)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                self.webView.load(request)
-            }
+        let request = URLRequest(url: service.homeURL, cachePolicy: .reloadRevalidatingCacheData, timeoutInterval: 30)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            webView.load(request)
         }
     }
 
-    // MARK: - WebView Delegates
+    @objc private func openInSafari() {
+        let destination = webView?.url ?? service.homeURL
+        UIApplication.shared.open(destination, options: [:], completionHandler: nil)
+    }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         activityIndicator.stopAnimating()
-        print("✅ Page finished loading")
-
-        // Optional: bind hold-to-speak icon to mic (future-facing)
-        let voiceBind = """
-        setTimeout(() => {
-          try {
-            const voiceBtn = document.querySelector('[aria-label="Hold to speak"]');
-            const micBtn = document.querySelector('[aria-label="Start voice input"]');
-            if (voiceBtn && micBtn) {
-              voiceBtn.addEventListener('mousedown', () => micBtn.click());
-              console.log('🎤 Hold-to-speak rebound to mic');
-            }
-          } catch (e) {
-            console.log('❌ Mic bind failed:', e);
-          }
-        }, 3000);
-        """
-        webView.evaluateJavaScript(voiceBind, completionHandler: nil)
+        if let didFinishScript = service.injectedJavaScript?.didFinish {
+            webView.evaluateJavaScript(didFinishScript, completionHandler: nil)
+        }
     }
 
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
@@ -144,12 +128,18 @@ final class WebContainerViewController: UIViewController, WKNavigationDelegate, 
         print("❌ Navigation failed: \(error.localizedDescription)")
     }
 
-    func webView(_ webView: WKWebView,
-                 runJavaScriptAlertPanelWithMessage message: String,
-                 initiatedByFrame frame: WKFrameInfo,
-                 completionHandler: @escaping () -> Void) {
+    func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+        webView.reload()
+    }
+
+    func webView(
+        _ webView: WKWebView,
+        runJavaScriptAlertPanelWithMessage message: String,
+        initiatedByFrame frame: WKFrameInfo,
+        completionHandler: @escaping () -> Void
+    ) {
         let alert = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in completionHandler() })
-        self.present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
 }
